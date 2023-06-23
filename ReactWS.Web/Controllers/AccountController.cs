@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReactWS.Data;
@@ -64,6 +65,13 @@ namespace ReactWS.Web.Controllers
                 Email = vm.Email,
             };
             repo.Signup(user, vm.password);
+        }
+        [Authorize]
+        [HttpPost]
+        [Route("logout")]
+        public void Logout()
+        {
+            HttpContext.SignOutAsync().Wait();
         }
     }
 }
